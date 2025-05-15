@@ -28,7 +28,6 @@ Auth::routes();
 
 Route::middleware(['auth', 'is_admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::resource('users', App\Http\Controllers\Admin\UserController::class);
-    Route::resource('procesos', App\Http\Controllers\Admin\ProcesoController::class);
+    Route::resource('clientes', App\Http\Controllers\Admin\ClienteController::class);
 
-    
 });
