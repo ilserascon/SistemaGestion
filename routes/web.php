@@ -13,6 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+use App\Http\Controllers\EventoController;
+
+Route::get('/agenda/eventos', [App\Http\Controllers\EventoController::class, 'eventos'])->name('agenda.eventos');
+Route::get('/agenda', [EventoController::class, 'index'])->name('agenda.index');
+Route::get('/agenda/eventos', [EventoController::class, 'eventos'])->name('agenda.eventos');
+Route::post('/agenda', [EventoController::class, 'store'])->name('agenda.store');
 Route::get('/', function () {
     return redirect('/login'); 
 });
