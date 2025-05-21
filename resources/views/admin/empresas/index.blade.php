@@ -66,7 +66,7 @@
                 </td>
               </tr>
             @empty
-              <tr><td colspan="6" class="text-center">No hay empresas registradas.</td></tr>
+              <tr><td colspan="6" class="text-center">No hay empresas registradas</td></tr>
             @endforelse
           </tbody>
         </table>
