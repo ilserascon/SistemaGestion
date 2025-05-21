@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\ProcesosClienteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,5 +31,10 @@ Route::middleware(['auth', 'is_admin'])->prefix('admin')->name('admin.')->group(
     Route::resource('users', App\Http\Controllers\Admin\UserController::class);
     Route::resource('clientes', App\Http\Controllers\Admin\ClienteController::class);
     Route::resource('empresas', App\Http\Controllers\Admin\EmpresaController::class);
-
+    Route::resource('procesos', App\Http\Controllers\Admin\ProcesoController::class);
+    Route::resource('procesos_cliente', App\Http\Controllers\Admin\ProcesosClienteController::class)->only(['index', 'create', 'store', 'edit', 'update']);
+    Route::get('procesos_cliente/{clienteId}', [App\Http\Controllers\Admin\ProcesosClienteController::class, 'index'])->name('admin.procesos_cliente.index');
+    Route::get('procesos_cliente', [ProcesosClienteController::class, 'index'])->name('procesos_cliente.index'); // Lista todos los clientes
+    Route::get('procesos_cliente/{clienteId}', [ProcesosClienteController::class, 'show'])->name('procesos_cliente.show'); // Muestra los procesos de un cliente
+    Route::put('procesos_cliente/{procesosCliente}', [ProcesosClienteController::class, 'update'])->name('procesos_cliente.update'); // Actualiza el estado de un proceso
 });
