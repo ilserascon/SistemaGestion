@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Cliente; // Asegúrate de tener el modelo Cliente
+use App\Models\Proceso;
+use App\Models\ProcesosCliente;
 
 class ClienteController extends Controller
 {
@@ -35,9 +37,10 @@ class ClienteController extends Controller
 
     public function store(Request $request)
     {
-        \Log::info('Datos del formulario:', $request->all());
-        
+        // Validar los datos del cliente
         $request->validate([
+            'nombre' => 'required|string|max:255',
+            'apellido' => 'required|string|max:255',
             'rfc' => 'required|string|max:13|unique:clientes',
             'razon_social' => 'required|string|max:255',
             'direccion' => 'required|string|max:255',
@@ -53,11 +56,21 @@ class ClienteController extends Controller
             'celular' => 'nullable|string|max:20',
         ]);
 
-        Cliente::create($request->all());
+        // Crear el cliente
+        $cliente = Cliente::create($request->all());
 
-        return redirect()->route('admin.clientes.index')->with('success', 'Cliente creado exitosamente.');
+        // Asignar todos los procesos al cliente
+        $procesos = Proceso::all(); // Obtener todos los procesos de la tabla procesos
+        foreach ($procesos as $proceso) {
+            ProcesosCliente::create([
+                'cliente_id' => $cliente->id,
+                'proceso_id' => $proceso->id,
+                'validado' => false, // Por defecto, los procesos no están validados
+            ]);
+        }
+
+        return redirect()->route('admin.clientes.index')->with('success', 'Cliente creado y procesos asignados automáticamente.');
     }
-
 
     public function show($id)
     {
