@@ -19,7 +19,7 @@
           <div class="form-group">
             <label for="nombre">Nombre</label>
             <input id="nombre" name="nombre" class="form-control @error('nombre') is-invalid @enderror"
-                   value="{{ old('nombre', $cliente->nombre) }}" required>
+                    value="{{ old('nombre', $cliente->nombre) }}" required>
             @error('nombre') <div class="invalid-feedback">{{ $message }}</div> @enderror
           </div>
 

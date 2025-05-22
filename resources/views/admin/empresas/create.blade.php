@@ -15,9 +15,9 @@
           @csrf
 
           <div class="form-group">
-            <label for="cliente_id">Cliente</label>
-            <input name="cliente_id" class="form-control @error('cliente_id') is-invalid @enderror" value="{{ old('cliente_id') }}" required>
-            @error('cliente_id') <div class="invalid-feedback">{{ $message }}</div> @enderror
+            <label for="nombre">Nombre</label>
+            <input name="nombre" class="form-control @error('nombre') is-invalid @enderror" value="{{ old('nombre') }}" required>
+            @error('nombre') <div class="invalid-feedback">{{ $message }}</div> @enderror
           </div>
 
           <div class="form-group">
@@ -44,16 +44,18 @@
             @error('colonia') <div class="invalid-feedback">{{ $message }}</div> @enderror
           </div>
 
-          <div class="form-group">
-            <label for="numero_interior">Número Interior</label>
-            <input name="numero_interior" class="form-control @error('numero_interior') is-invalid @enderror" value="{{ old('numero_interior') }}">
-            @error('numero_interior') <div class="invalid-feedback">{{ $message }}</div> @enderror
-          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="numero_interior">Número Interior</label>
+              <input name="numero_interior" class="form-control @error('numero_interior') is-invalid @enderror" value="{{ old('numero_interior') }}">
+              @error('numero_interior') <div class="invalid-feedback">{{ $message }}</div> @enderror
+            </div>
 
-          <div class="form-group">
-            <label for="numero_exterior">Número Exterior</label>
-            <input name="numero_exterior" class="form-control @error('numero_exterior') is-invalid @enderror" value="{{ old('numero_exterior') }}">
-            @error('numero_exterior') <div class="invalid-feedback">{{ $message }}</div> @enderror
+            <div class="form-group col-md-6">
+              <label for="numero_exterior">Número Exterior</label>
+              <input name="numero_exterior" class="form-control @error('numero_exterior') is-invalid @enderror" value="{{ old('numero_exterior') }}">
+              @error('numero_exterior') <div class="invalid-feedback">{{ $message }}</div> @enderror
+            </div>
           </div>
 
           <div class="form-group">
@@ -86,16 +88,18 @@
             @error('correo') <div class="invalid-feedback">{{ $message }}</div> @enderror
           </div>
 
-          <div class="form-group">
-            <label for="telefono">Teléfono</label>
-            <input name="telefono" class="form-control @error('telefono') is-invalid @enderror" value="{{ old('telefono') }}">
-            @error('telefono') <div class="invalid-feedback">{{ $message }}</div> @enderror
-          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="telefono">Teléfono</label>
+              <input name="telefono" class="form-control @error('telefono') is-invalid @enderror" value="{{ old('telefono') }}">
+              @error('telefono') <div class="invalid-feedback">{{ $message }}</div> @enderror
+            </div>
 
-          <div class="form-group">
-            <label for="celular">Celular</label>
-            <input name="celular" class="form-control @error('celular') is-invalid @enderror" value="{{ old('celular') }}">
-            @error('celular') <div class="invalid-feedback">{{ $message }}</div> @enderror
+            <div class="form-group col-md-6">
+              <label for="celular">Celular</label>
+              <input name="celular" class="form-control @error('celular') is-invalid @enderror" value="{{ old('celular') }}">
+              @error('celular') <div class="invalid-feedback">{{ $message }}</div> @enderror
+            </div>
           </div>
 
           <button type="submit" class="btn btn-primary">Guardar</button>

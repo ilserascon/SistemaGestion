@@ -11,9 +11,19 @@ class EmpresaController extends Controller
 {
     public function index()
     {
-        $empresas = Empresa::where('borrado', 1)->get(); 
+        $clienteId = session('cliente_seleccionado');
+
+        if ($clienteId) {
+            $empresas = Empresa::where('borrado', 1)
+                                ->where('cliente_id', $clienteId)
+                                ->get();
+        } else {
+            $empresas = collect();
+        }
+
         return view('admin.empresas.index', compact('empresas'));
     }
+
 
     public function create()
     {
@@ -23,7 +33,7 @@ class EmpresaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'cliente_id' => 'required|integer|exists:clientes,id',
+            'nombre' => 'required|string|max:255',
             'rfc' => 'required|string|max:13|unique:empresas,rfc',
             'razon_social' => 'required|string|max:255',
             'direccion' => 'required|string|max:255',
@@ -39,10 +49,16 @@ class EmpresaController extends Controller
             'celular' => 'nullable|string|max:20',
         ]);
 
-        Empresa::create($request->all());
+            $empresa = new Empresa($request->all());
 
-        return redirect()->route('admin.empresas.index')->with('success', 'Empresa creada exitosamente.');
+            $cliente_id = session('cliente_seleccionado');
+            if ($cliente_id) {
+                $empresa->cliente_id = $cliente_id;
+            }
 
+            $empresa->save();
+
+            return redirect()->route('admin.empresas.index')->with('success', 'Empresa creada correctamente.');
     }
 
     public function show(Empresa $empresa)
@@ -58,7 +74,7 @@ class EmpresaController extends Controller
     public function update(Request $request, Empresa $empresa)
     {
         $request->validate([
-            'cliente_id' => 'required|integer|exists:clientes,id',
+            'nombre' => 'required|string|max:255',
             'rfc' => 'required|string|max:13|unique:empresas,rfc,' . $empresa->id,
             'razon_social' => 'required|string|max:255',
             'direccion' => 'required|string|max:255',
@@ -86,7 +102,7 @@ class EmpresaController extends Controller
         $empresa->borrado = 0;
         $empresa->save();
 
-        return redirect()->route('admin.empresas.index')->with('danger', 'Empresa eliminado exitosamente.');
+        return redirect()->route('admin.empresas.index')->with('danger', 'Empresa eliminada exitosamente.');
         
     }
 

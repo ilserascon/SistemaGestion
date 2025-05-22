@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
+use App\Http\Controllers\Admin\ClienteController;
 use App\Http\Controllers\EventoController;
 
 Route::get('/agenda/eventos', [App\Http\Controllers\EventoController::class, 'eventos'])->name('agenda.eventos');
@@ -35,6 +35,6 @@ Auth::routes();
 Route::middleware(['auth', 'is_admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::resource('users', App\Http\Controllers\Admin\UserController::class);
     Route::resource('clientes', App\Http\Controllers\Admin\ClienteController::class);
+    Route::get('clientes/seleccionar/{id}', [ClienteController::class, 'seleccionar'])->name('clientes.seleccionar');
     Route::resource('empresas', App\Http\Controllers\Admin\EmpresaController::class);
-
 });

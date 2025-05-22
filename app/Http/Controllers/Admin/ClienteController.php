@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Cliente; // Asegúrate de tener el modelo Cliente
+use App\Models\Cliente;
 
 class ClienteController extends Controller
 {
@@ -12,21 +12,21 @@ class ClienteController extends Controller
     {
         $query = Cliente::where('borrado', 1);
 
-        // Filtro por nombre
         if ($request->filled('nombre')) {
             $query->where('nombre', 'like', '%' . $request->nombre . '%');
         }
 
-        // Filtro por RFC
         if ($request->filled('rfc')) {
             $query->where('rfc', 'like', '%' . $request->rfc . '%');
         }
 
-        // Obtener los clientes paginados
         $clientes = $query->paginate(10);
 
-        return view('admin.clientes.index', compact('clientes'));
+        $clienteSeleccionado = session('cliente_seleccionado');
+
+        return view('admin.clientes.index', compact('clientes', 'clienteSeleccionado'));
     }
+
 
     public function create()
     {
@@ -35,8 +35,6 @@ class ClienteController extends Controller
 
     public function store(Request $request)
     {
-        \Log::info('Datos del formulario:', $request->all());
-        
         $request->validate([
             'rfc' => 'required|string|max:13|unique:clientes',
             'razon_social' => 'required|string|max:255',
@@ -53,11 +51,21 @@ class ClienteController extends Controller
             'celular' => 'nullable|string|max:20',
         ]);
 
-        Cliente::create($request->all());
+        $cliente = Cliente::create($request->all());
+
+        session(['cliente_seleccionado' => $cliente->id]);
 
         return redirect()->route('admin.clientes.index')->with('success', 'Cliente creado exitosamente.');
     }
 
+    public function seleccionar($id)
+    {
+        $cliente = Cliente::findOrFail($id);
+
+        session(['cliente_seleccionado' => $cliente->id]);
+
+        return redirect()->route('admin.clientes.index')->with('success', "Cliente {$cliente->razon_social} seleccionado.");
+    }
 
     public function show($id)
     {
