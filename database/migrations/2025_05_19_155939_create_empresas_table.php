@@ -11,6 +11,7 @@ return new class extends Migration
         Schema::create('empresas', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('cliente_id');
+            $table->string('nombre');
             $table->string('rfc');
             $table->string('razon_social');
             $table->string('direccion');
@@ -28,7 +29,6 @@ return new class extends Migration
 
             $table->timestamps();
 
-            // Aquí defines la clave foránea:
             $table->foreign('cliente_id')->references('id')->on('clientes')->onDelete('cascade');
         });
     }

@@ -83,12 +83,25 @@
                 <td>{{ $cliente->telefono }}</td>
                 <td>{{ $cliente->celular }}</td>
                 <td>
-                  <a href="{{ route('admin.clientes.edit', $cliente->id) }}" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>
-                  <form action="{{ route('admin.clientes.destroy', $cliente->id) }}" method="POST" class="d-inline">
-                    @csrf
-                    @method('DELETE')
-                    <button class="btn btn-danger btn-sm" onclick="return confirm('¿Eliminar cliente?')"><i class="fas fa-trash"></i></button>
-                  </form>
+                  <div class="d-flex align-items-center">
+                    <a href="{{ route('admin.clientes.edit', $cliente->id) }}" class="btn btn-warning btn-sm mr-2">
+                      <i class="fas fa-edit"></i>
+                    </a>
+                    <form action="{{ route('admin.clientes.destroy', $cliente->id) }}" method="POST" onsubmit="return confirm('¿Eliminar cliente?')" class="mr-2">
+                      @csrf
+                      @method('DELETE')
+                      <button type="submit" class="btn btn-danger btn-sm">
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </form>
+                    @if ($clienteSeleccionado == $cliente->id)
+                      <a class="btn btn-secondary btn-sm text-dark disabled">Seleccionado</a>
+                    @else
+                      <a href="{{ route('admin.clientes.seleccionar', $cliente->id) }}" class="btn btn-success btn-sm">
+                        Seleccionar
+                      </a>
+                    @endif
+                  </div>
                 </td>
               </tr>
             @empty
