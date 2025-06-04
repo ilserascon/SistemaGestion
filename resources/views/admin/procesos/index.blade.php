@@ -57,17 +57,17 @@
                                     @endif
                                 </td>
                                 <td class="text-truncate" style="max-width: 200px;">{{ $proceso->mensaje }}</td>
-                                <td class="d-flex">
-                                    <a href="{{ route('admin.procesos.show', $proceso->id) }}" class="btn btn-info btn-sm me-2" title="Ver">
+                                <td>
+                                    <a href="{{ route('admin.procesos.show', $proceso->id) }}" class="btn btn-info btn-sm" title="Ver">
                                         <i class="fas fa-eye"></i>
                                     </a>
-                                    <a href="{{ route('admin.procesos.edit', $proceso->id) }}" class="btn btn-warning btn-sm me-2" title="Editar">
+                                    <a href="{{ route('admin.procesos.edit', $proceso->id) }}" class="btn btn-warning btn-sm" title="Editar">
                                         <i class="fas fa-edit"></i>
                                     </a>
                                     <form action="{{ route('admin.procesos.destroy', $proceso->id) }}" method="POST" style="display:inline;">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm" title="Eliminar" onclick="return confirm('¿Estás seguro de eliminar este proceso?')">
+                                        <button class="btn btn-danger btn-sm" onclick="return confirm('¿Seguro que deseas eliminar?')" title="Eliminar">
                                             <i class="fas fa-trash"></i>
                                         </button>
                                     </form>

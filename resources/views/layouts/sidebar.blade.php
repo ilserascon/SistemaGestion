@@ -29,7 +29,27 @@
         <li class="{{ request()->is('admin/procesos_cliente*') ? 'active' : '' }}">
           <a class="nav-link" href="{{ route('admin.procesos_cliente.index') }}"><i class="fas fa-users"></i> <span>Procesos del Cliente</span></a>
         </li>
-      @endif
+      
+        @if (session('cliente_seleccionado'))
+          @php
+            $clienteSidebar = \App\Models\Cliente::find(session('cliente_seleccionado'));
+          @endphp
+          @if ($clienteSidebar)
+            <li class="menu-header"></li>
+            <li>
+                <div class="d-flex align-items-center" style="padding-left: 15px; width: 100%;">
+                    <i class="fas fa-user-check"></i>
+                    <span style="margin-left: 8px;">{{ $clienteSidebar->nombre }} {{ $clienteSidebar->apellido }}</span>
+                    <a href="{{ route('admin.clientes.deseleccionar') }}"
+                        class="btn btn-xs btn-light"
+                        style="margin-left: auto; margin-right: 8px; padding: 0; font-size: 1.1rem; line-height: 1; color: #333; border: 1px solid #ccc; height: 20px; width: 20px; display: flex; align-items: center; justify-content: center;">
+                        &times;
+                    </a>
+                </div>
+            </li>
+          @endif
+        @endif
+        @endif
 
       @if (Auth::check() && Auth::user()->role && Auth::user()->role->nombre === 'Cliente')
         <li class="menu-header">Menú del Cliente</li>
@@ -45,18 +65,6 @@
         <li class="{{ request()->is('cliente/agenda*') ? 'active' : '' }}">
           <a class="nav-link" href="{{ route('cliente.agenda.index') }}"><i class="fas fa-calendar"></i> <span>Agenda</span></a>
         </li>
-
-        @if (session('cliente_seleccionado'))
-          @php
-            $clienteSidebar = \App\Models\Cliente::find(session('cliente_seleccionado'));
-          @endphp
-          @if ($clienteSidebar)
-            <li class="menu-header"></li>
-            <li>
-              <a class="nav-link"><i class="fas fa-user-check"></i> <span>{{ $clienteSidebar->nombre }}</span></a>
-            </li>
-          @endif
-        @endif
 
       @endif
     </ul>
