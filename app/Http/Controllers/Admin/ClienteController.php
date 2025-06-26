@@ -129,4 +129,12 @@ class ClienteController extends Controller
 
         return redirect()->route('admin.clientes.index')->with('danger', 'Cliente eliminado exitosamente.');
     }
+
+    public function deseleccionar()
+    {
+        session()->forget('cliente_seleccionado');
+
+        return redirect()->route('admin.clientes.index')->with('info', 'Cliente deseleccionado.');
+    }
+
 }
