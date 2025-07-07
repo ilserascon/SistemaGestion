@@ -137,4 +137,19 @@ class ClienteController extends Controller
         return redirect()->route('admin.clientes.index')->with('info', 'Cliente deseleccionado.');
     }
 
+    public function procesosCliente($clienteId)
+    {
+        $cliente = Cliente::findOrFail($clienteId);
+        $procesos = $cliente->procesos; // Si tienes la relación definida en el modelo Cliente
+     
+        return view('admin.procesos_cliente.index', compact('procesos', 'cliente'));
+    }
+
+    public function showProcesosCliente($clienteId)
+    {
+        $cliente = Cliente::findOrFail($clienteId);
+        session(['cliente_seleccionado' => $cliente->id]); // <-- Esto es lo importante
+        $procesos = $cliente->procesosCliente; // O como obtengas los procesos
+        return view('admin.procesos_cliente.show', compact('procesos', 'cliente'));
+    }
 }

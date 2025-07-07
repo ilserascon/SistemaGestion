@@ -6,7 +6,7 @@
 @section('content')
 <div class="section">
     <div class="section-header">
-        <h1>Procesos de {{ $cliente->razon_social }}</h1>
+        <h1>Procesos de {{ $cliente->nombre }}</h1>
     </div>
 
     <div class="section-body">
