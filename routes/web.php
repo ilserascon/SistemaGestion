@@ -20,9 +20,9 @@ Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Route::get('/agenda', [EventoController::class, 'index'])->name('agenda.index');
-Route::get('/agenda/eventos', [EventoController::class, 'eventos'])->name('agenda.eventos');
-Route::post('/agenda', [EventoController::class, 'store'])->name('agenda.store');
+Route::get('/agenda', [EventoController::class, 'index'])->name('admin.agenda.index');
+Route::get('/agenda/eventos', [EventoController::class, 'eventos'])->name('admin.agenda.eventos');
+Route::post('/agenda', [EventoController::class, 'store'])->name('admin.agenda.store');
 
 Route::middleware(['auth', 'is_admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::resource('users', UserController::class);
