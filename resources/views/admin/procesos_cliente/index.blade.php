@@ -20,7 +20,8 @@
                         <tr>
                             <th>ID</th>
                             <th>Nombre</th>
-                            <th>RFC</th>
+                            <th>Apellido</th>
+                            <th>RFC</th>                            
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -28,7 +29,8 @@
                         @forelse ($clientes as $cliente)
                             <tr>
                                 <td>{{ $cliente->id }}</td>
-                                <td>{{ $cliente->razon_social }}</td>
+                                <td>{{ $cliente->nombre }}</td>
+                                <td>{{ $cliente->apellido }}</td>
                                 <td>{{ $cliente->rfc }}</td>
                                 <td>
                                     <a href="{{ route('admin.procesos_cliente.show', $cliente->id) }}" class="btn btn-primary btn-sm">

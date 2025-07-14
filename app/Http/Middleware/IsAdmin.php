@@ -13,12 +13,16 @@ class IsAdmin
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
-    {
-        if (auth()->check() && auth()->user()->role && auth()->user()->role->nombre === 'Administrador') {
-            return $next($request);
-        }
-
-        abort(403, 'No tienes permiso para acceder a esta sección.');
+public function handle(Request $request, Closure $next)
+{
+    if (
+        auth()->check() &&
+        auth()->user()->role &&
+        strtolower(auth()->user()->role->nombre) === 'administrador'
+    ) {
+        return $next($request);
     }
+
+    abort(403, 'No tienes permiso para acceder a esta sección.');
+}
 }

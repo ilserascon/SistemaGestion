@@ -40,4 +40,5 @@ Route::middleware(['auth', 'is_admin'])->prefix('admin')->name('admin.')->group(
     Route::get('organigrama/{empresa_id?}', [OrganigramaController::class, 'index'])->name('empresas.organigramas.index');
     Route::post('organigrama', [OrganigramaController::class, 'store'])->name('organigrama.store');
     Route::resource('organigrama_configuracion', OrganigramaConfiguracionController::class);
+
 });

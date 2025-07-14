@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Cliente; // Asegúrate de tener el modelo Cliente
+use App\Models\Cliente;
 use App\Models\Proceso;
 use App\Models\ProcesosCliente;
 
@@ -28,7 +28,6 @@ class ClienteController extends Controller
 
         return view('admin.clientes.index', compact('clientes', 'clienteSeleccionado'));
     }
-
 
     public function create()
     {
@@ -97,7 +96,7 @@ class ClienteController extends Controller
         $cliente = Cliente::findOrFail($id);
 
         $request->validate([
-            'nombre' => 'required|string|max:255',	
+            'nombre' => 'required|string|max:255',    
             'apellido' => 'required|string|max:255',
             'rfc' => 'required|string|max:13|unique:clientes,rfc,' . $cliente->id,
             'razon_social' => 'required|string|max:255',
@@ -128,5 +127,10 @@ class ClienteController extends Controller
         return redirect()->route('admin.clientes.index')->with('danger', 'Cliente eliminado exitosamente.');
     }
 
-    
+    public function deseleccionar()
+    {
+        session()->forget('cliente_seleccionado');
+
+        return redirect()->route('admin.clientes.index')->with('info', 'Cliente deseleccionado.');
+    }
 }
