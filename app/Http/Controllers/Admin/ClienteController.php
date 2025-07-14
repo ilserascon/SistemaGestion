@@ -76,9 +76,7 @@ class ClienteController extends Controller
     public function seleccionar($id)
     {
         $cliente = Cliente::findOrFail($id);
-
         session(['cliente_seleccionado' => $cliente->id]);
-
         return redirect()->route('admin.clientes.index')->with('success', "Cliente {$cliente->razon_social} seleccionado.");
     }
 
@@ -129,4 +127,6 @@ class ClienteController extends Controller
 
         return redirect()->route('admin.clientes.index')->with('danger', 'Cliente eliminado exitosamente.');
     }
+
+    
 }
