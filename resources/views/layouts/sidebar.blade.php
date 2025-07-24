@@ -22,14 +22,6 @@
           <a class="nav-link" href="{{ route('admin.clientes.index') }}"><i class="fas fa-users"></i> <span>Clientes</span></a>
         </li>
 
-        <li class="{{ request()->is('admin/empresas*') ? 'active' : '' }}">
-          <a class="nav-link" href="{{ route('admin.empresas.index') }}"><i class="fas fa-users"></i> <span>Empresas</span></a>
-        </li>
-
-        <li class="{{ request()->is('admin/procesos_cliente*') ? 'active' : '' }}">
-          <a class="nav-link" href="{{ route('admin.procesos_cliente.index') }}"><i class="fas fa-users"></i> <span>Procesos del Cliente</span></a>
-        </li>
-      
         @if (session('cliente_seleccionado'))
           @php
             $clienteSidebar = \App\Models\Cliente::find(session('cliente_seleccionado'));
@@ -37,7 +29,7 @@
           @if ($clienteSidebar)
             <li class="menu-header"></li>
             <li>
-                <div class="d-flex align-items-center" style="padding-left: 15px; width: 100%;">
+                <div class="d-flex align-items-center rounded" style="background-color: #fff700; padding-left: 15px; width: 100%;">
                     <i class="fas fa-user-check"></i>
                     <span style="margin-left: 8px;">{{ $clienteSidebar->nombre }} {{ $clienteSidebar->apellido }}</span>
                     <a href="{{ route('admin.clientes.deseleccionar') }}"
@@ -49,6 +41,16 @@
             </li>
           @endif
         @endif
+
+        <li class="{{ request()->is('admin/empresas*') ? 'active' : '' }}">
+          <a class="nav-link" href="{{ route('admin.empresas.index') }}"><i class="fas fa-users"></i> <span>Empresas</span></a>
+        </li>
+
+        <li class="{{ request()->is('admin/procesos_cliente*') ? 'active' : '' }}">
+          <a class="nav-link" href="{{ route('admin.procesos_cliente.index') }}"><i class="fas fa-users"></i> <span>Procesos del Cliente</span></a>
+        </li>
+      
+        
         @endif
 
       @if (Auth::check() && Auth::user()->role && Auth::user()->role->nombre === 'Cliente')
