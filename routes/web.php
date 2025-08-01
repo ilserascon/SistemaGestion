@@ -34,5 +34,5 @@ Route::middleware(['auth', 'is_admin'])->prefix('admin')->name('admin.')->group(
     Route::get('procesos_cliente', [ProcesosClienteController::class, 'index'])->name('procesos_cliente.index'); // Lista todos los clientes
     Route::get('procesos_cliente/{clienteId}', [ProcesosClienteController::class, 'show'])->name('procesos_cliente.show'); // Muestra los procesos de un cliente
     Route::put('procesos_cliente/{procesosCliente}', [ProcesosClienteController::class, 'update'])->name('procesos_cliente.update'); // Actualiza el estado
-    
+
 });
