@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Cliente; // Asegúrate de tener el modelo Cliente
+use App\Models\Cliente;
 use App\Models\Proceso;
 use App\Models\ProcesosCliente;
 
@@ -28,7 +28,6 @@ class ClienteController extends Controller
 
         return view('admin.clientes.index', compact('clientes', 'clienteSeleccionado'));
     }
-
 
     public function create()
     {
@@ -95,9 +94,7 @@ class ClienteController extends Controller
     public function seleccionar($id)
     {
         $cliente = Cliente::findOrFail($id);
-
         session(['cliente_seleccionado' => $cliente->id]);
-
         return redirect()->route('admin.clientes.index')->with('success', "Cliente {$cliente->razon_social} seleccionado.");
     }
 
@@ -118,7 +115,7 @@ class ClienteController extends Controller
         $cliente = Cliente::findOrFail($id);
 
         $request->validate([
-            'nombre' => 'required|string|max:255',	
+            'nombre' => 'required|string|max:255',    
             'apellido' => 'required|string|max:255',
             'rfc' => 'required|string|max:13|unique:clientes,rfc,' . $cliente->id,
             'razon_social' => 'required|string|max:255',
@@ -174,11 +171,11 @@ class ClienteController extends Controller
 
         return redirect()->route('admin.clientes.index')->with('info', 'Cliente deseleccionado.');
     }
-
+  
     public function procesosCliente($clienteId)
     {
         $cliente = Cliente::findOrFail($clienteId);
-        $procesos = $cliente->procesos; // Si tienes la relación definida en el modelo Cliente
+        $procesos = $cliente->procesos; // Relación en modelo Cliente
      
         return view('admin.procesos_cliente.index', compact('procesos', 'cliente'));
     }
@@ -186,8 +183,8 @@ class ClienteController extends Controller
     public function showProcesosCliente($clienteId)
     {
         $cliente = Cliente::findOrFail($clienteId);
-        session(['cliente_seleccionado' => $cliente->id]); // <-- Esto es lo importante
-        $procesos = $cliente->procesosCliente; // O como obtengas los procesos
+        session(['cliente_seleccionado' => $cliente->id]);
+        $procesos = $cliente->procesosCliente;
         return view('admin.procesos_cliente.show', compact('procesos', 'cliente'));
     }
 }
