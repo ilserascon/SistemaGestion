@@ -47,6 +47,24 @@ class EmpresaController extends Controller
             'correo' => 'required|email|unique:empresas,correo',
             'telefono' => 'nullable|string|max:20',
             'celular' => 'nullable|string|max:20',
+        ],[
+            'nombre.required' => 'El nombre es obligatorio.',
+            'rfc.required' => 'El RFC es obligatorio.',
+            'rfc.unique' => 'El RFC ya está registrado.',
+            'rfc.max' => 'El RFC no debe exceder 13 caracteres.',
+            'razon_social.required' => 'La razón social es obligatoria.',
+            'direccion.required' => 'La dirección es obligatoria.',
+            'colonia.required' => 'La colonia es obligatoria.',
+            'numero_exterior.required' => 'El número exterior es obligatorio.',
+            'codigo_postal.required' => 'El código postal es obligatorio.',
+            'localidad.required' => 'La localidad es obligatoria.',
+            'ciudad.required' => 'La ciudad es obligatoria.',
+            'estado.required' => 'El estado es obligatorio.',
+            'correo.required' => 'El correo electrónico es obligatorio.',
+            'correo.email' => 'El formato del correo electrónico es inválido.',
+            'correo.unique' => 'El correo electrónico ya está registrado.',
+            'telefono.max' => 'El teléfono no debe exceder 20 caracteres.',
+            'celular.max' => 'El celular no debe exceder 20 caracteres.',
         ]);
 
             $empresa = new Empresa($request->all());
@@ -88,6 +106,24 @@ class EmpresaController extends Controller
             'correo' => 'required|email|unique:empresas,correo,' . $empresa->id,
             'telefono' => 'nullable|string|max:20',
             'celular' => 'nullable|string|max:20',
+        ],[
+            'nombre.required' => 'El nombre es obligatorio.',
+            'rfc.required' => 'El RFC es obligatorio.',
+            'rfc.unique' => 'El RFC ya está registrado.',
+            'rfc.max' => 'El RFC no debe exceder 13 caracteres.',
+            'razon_social.required' => 'La razón social es obligatoria.',
+            'direccion.required' => 'La dirección es obligatoria.',
+            'colonia.required' => 'La colonia es obligatoria.',
+            'numero_exterior.required' => 'El número exterior es obligatorio.',
+            'codigo_postal.required' => 'El código postal es obligatorio.',
+            'localidad.required' => 'La localidad es obligatoria.',
+            'ciudad.required' => 'La ciudad es obligatoria.',
+            'estado.required' => 'El estado es obligatorio.',
+            'correo.required' => 'El correo electrónico es obligatorio.',
+            'correo.email' => 'El formato del correo electrónico es inválido.',
+            'correo.unique' => 'El correo electrónico ya está registrado.',
+            'telefono.max' => 'El teléfono no debe exceder 20 caracteres.',
+            'celular.max' => 'El celular no debe exceder 20 caracteres.',
         ]);
 
         $empresa->update($request->all());

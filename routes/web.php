@@ -24,8 +24,9 @@ Route::get('/agenda', [EventoController::class, 'index'])->name('admin.agenda.in
 Route::get('/agenda/eventos', [EventoController::class, 'eventos'])->name('admin.agenda.eventos');
 Route::post('/agenda', [EventoController::class, 'store'])->name('admin.agenda.store');
 
-Route::middleware(['auth', 'is_admin'])->prefix('admin')->name('admin.')->group(function () {
+RRoute::middleware(['auth', 'is_admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::resource('users', UserController::class);
+    Route::get('clientes/deseleccionar', [ClienteController::class, 'deseleccionar'])->name('clientes.deseleccionar');
     Route::resource('clientes', ClienteController::class);
     Route::get('clientes/seleccionar/{id}', [ClienteController::class, 'seleccionar'])->name('clientes.seleccionar');
     Route::get('clientes/deseleccionar', [ClienteController::class, 'deseleccionar'])->name('clientes.deseleccionar');

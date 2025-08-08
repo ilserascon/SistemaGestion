@@ -19,15 +19,15 @@ return new class extends Migration
             $table->string('razon_social');
             $table->string('direccion');
             $table->string('colonia');
-            $table->string('numero_interior');
+            $table->string('numero_interior')->nullable();
             $table->string('numero_exterior');
             $table->string('codigo_postal');
             $table->string('localidad');
             $table->string('ciudad');
             $table->string('estado');
             $table->string('correo');
-            $table->string('telefono');
-            $table->string('celular');
+            $table->string('telefono')->nullable();
+            $table->string('celular')->nullable();
             $table->boolean('borrado')->default(1);
             $table->timestamps();
         });
