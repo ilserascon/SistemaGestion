@@ -97,7 +97,7 @@
                     @if ($clienteSeleccionado == $cliente->id)
                       <a class="btn btn-secondary btn-sm text-dark disabled">Seleccionado</a>
                     @else
-                      <a href="{{ route('admin.clientes.seleccionar', $cliente->id) }}" class="btn btn-success btn-sm">
+                      <a href="{{ route('admin.procesos_cliente.show', $cliente->id) }}" class="btn btn-success btn-sm">
                         Seleccionar
                       </a>
                     @endif

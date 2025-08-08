@@ -24,7 +24,7 @@
           </a>
         </li>
 
-        <li class="{{ request()->is('admin/procesos*') ? 'active' : '' }}">
+        <li class="{{ (request()->is('admin/procesos*') && !request()->is('admin/procesos_cliente*')) ? 'active' : '' }}">
           <a class="nav-link" href="{{ route('admin.procesos.index') }}">
             <i class="fas fa-cogs"></i> <span>Procesos</span>
           </a>
@@ -42,12 +42,20 @@
           @endphp
 
           @if ($clienteSidebar)
-            <li class="menu-header"></li>
-            <li>
-              <a class="nav-link" href="#">
-                <i class="fas fa-user"></i>
-                <strong>{{ $clienteSidebar->nombre }}</strong>
+            <li class="{{ request()->is('admin.procesos_cliente*') ? 'active' : '' }}" style="display: flex; align-items: center;">
+              <a class="nav-link" href="{{ route('admin.procesos_cliente.show', $clienteSidebar->id) }}" style="flex:1;">
+                <i class="fas fa-user-check"></i>
+                <span>Cliente ({{ $clienteSidebar->nombre }} {{ $clienteSidebar->apellido }})</span>
               </a>
+              <form action="{{ route('admin.clientes.deseleccionar') }}" method="POST" style="margin:0;">
+                @csrf
+                <button type="submit"
+                  class="btn btn-xs btn-light"
+                  title="Deseleccionar cliente"
+                  style="margin-left: 4px; padding: 0 6px; font-size: 1.1rem; line-height: 1; color: #333; border: 1px solid #ccc; height: 24px; width: 24px; display: inline-flex; align-items: center; justify-content: center;">
+                  &times;
+                </button>
+              </form>
             </li>
           @endif
         @endif

@@ -52,6 +52,25 @@ class ClienteController extends Controller
             'correo' => 'required|email|unique:clientes',
             'telefono' => 'nullable|string|max:20',
             'celular' => 'nullable|string|max:20',
+        ],[
+            'nombre.required' => 'El nombre es obligatorio.',
+            'apellido.required' => 'El apellido es obligatorio.',
+            'rfc.required' => 'El RFC es obligatorio.',
+            'rfc.unique' => 'El RFC ya está registrado.',
+            'rfc.max' => 'El RFC no debe exceder 13 caracteres.',
+            'razon_social.required' => 'La razón social es obligatoria.',
+            'direccion.required' => 'La dirección es obligatoria.',
+            'colonia.required' => 'La colonia es obligatoria.',
+            'numero_exterior.required' => 'El número exterior es obligatorio.',
+            'codigo_postal.required' => 'El código postal es obligatorio.',
+            'localidad.required' => 'La localidad es obligatoria.',
+            'ciudad.required' => 'La ciudad es obligatoria.',
+            'estado.required' => 'El estado es obligatorio.',
+            'correo.required' => 'El correo electrónico es obligatorio.',
+            'correo.email' => 'El formato del correo electrónico es inválido.',
+            'correo.unique' => 'El correo electrónico ya está registrado.',
+            'telefono.max' => 'El teléfono no debe exceder 20 caracteres.',
+            'celular.max' => 'El celular no debe exceder 20 caracteres.',
         ]);
 
         // Crear el cliente
@@ -111,6 +130,25 @@ class ClienteController extends Controller
             'correo' => 'required|email|unique:clientes,correo,' . $cliente->id,
             'telefono' => 'nullable|string|max:20',
             'celular' => 'nullable|string|max:20',
+        ],[
+            'nombre.required' => 'El nombre es obligatorio.',
+            'apellido.required' => 'El apellido es obligatorio.',
+            'rfc.required' => 'El RFC es obligatorio.',
+            'rfc.unique' => 'El RFC ya está registrado.',
+            'rfc.max' => 'El RFC no debe exceder 13 caracteres.',
+            'razon_social.required' => 'La razón social es obligatoria.',
+            'direccion.required' => 'La dirección es obligatoria.',
+            'colonia.required' => 'La colonia es obligatoria.',
+            'numero_exterior.required' => 'El número exterior es obligatorio.',
+            'codigo_postal.required' => 'El código postal es obligatorio.',
+            'localidad.required' => 'La localidad es obligatoria.',
+            'ciudad.required' => 'La ciudad es obligatoria.',
+            'estado.required' => 'El estado es obligatorio.',
+            'correo.required' => 'El correo electrónico es obligatorio.',
+            'correo.email' => 'El formato del correo electrónico es inválido.',
+            'correo.unique' => 'El correo electrónico ya está registrado.',
+            'telefono.max' => 'El teléfono no debe exceder 20 caracteres.',
+            'celular.max' => 'El celular no debe exceder 20 caracteres.',
         ]);
 
         $cliente->update($request->all());
@@ -132,5 +170,21 @@ class ClienteController extends Controller
         session()->forget('cliente_seleccionado');
 
         return redirect()->route('admin.clientes.index')->with('info', 'Cliente deseleccionado.');
+    }
+  
+    public function procesosCliente($clienteId)
+    {
+        $cliente = Cliente::findOrFail($clienteId);
+        $procesos = $cliente->procesos; // Relación en modelo Cliente
+     
+        return view('admin.procesos_cliente.index', compact('procesos', 'cliente'));
+    }
+
+    public function showProcesosCliente($clienteId)
+    {
+        $cliente = Cliente::findOrFail($clienteId);
+        session(['cliente_seleccionado' => $cliente->id]);
+        $procesos = $cliente->procesosCliente;
+        return view('admin.procesos_cliente.show', compact('procesos', 'cliente'));
     }
 }
