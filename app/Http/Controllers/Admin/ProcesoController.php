@@ -31,6 +31,16 @@ class ProcesoController extends Controller
             'tipo' => 'required',
             'liga' => 'nullable|url',
             'mensaje' => 'nullable|string|max:255'
+        ],[
+            'actividad.required' => 'La actividad es obligatoria.',
+            'responsable.required' => 'El responsable es obligatorio.',
+            'desarrollo.required' => 'El desarrollo es obligatorio.',
+            'fecha_entregable.date' => 'La fecha de entregable debe ser una fecha válida.',
+            'fecha_finalizado.date' => 'La fecha de finalización debe ser una fecha válida.',
+            'tipo.required' => 'El tipo es obligatorio.',
+            'liga.url' => 'La liga debe ser una URL válida.',
+            'mensaje.string' => 'El mensaje debe ser texto.',
+            'mensaje.max' => 'El mensaje no debe exceder 255 caracteres.',
         ]);
 
         Proceso::create($request->all());
@@ -64,6 +74,16 @@ class ProcesoController extends Controller
             'tipo' => 'required',
             'liga' => 'nullable|url',
             'mensaje' => 'nullable|string|max:255'
+        ],[
+            'actividad.required' => 'La actividad es obligatoria.',
+            'responsable.required' => 'El responsable es obligatorio.',
+            'desarrollo.required' => 'El desarrollo es obligatorio.',
+            'fecha_entregable.date' => 'La fecha de entregable debe ser una fecha válida.',
+            'fecha_finalizado.date' => 'La fecha de finalización debe ser una fecha válida.',
+            'tipo.required' => 'El tipo es obligatorio.',
+            'liga.url' => 'La liga debe ser una URL válida.',
+            'mensaje.string' => 'El mensaje debe ser texto.',
+            'mensaje.max' => 'El mensaje no debe exceder 255 caracteres.',
         ]);
 
         $proceso = Proceso::findOrFail($id);

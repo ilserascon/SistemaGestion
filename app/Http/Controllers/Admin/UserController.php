@@ -38,6 +38,15 @@ class UserController extends Controller
             'email' => 'required|email|unique:users',
             'role_id' => 'required|exists:roles,id',
             'password' => 'required|min:6'
+        ],[
+            'name.required' => 'El nombre es obligatorio.',
+            'email.required' => 'El correo electrónico es obligatorio.',
+            'email.email' => 'El formato del correo electrónico es inválido.',
+            'email.unique' => 'El correo electrónico ya está en uso.',
+            'role_id.required' => 'El rol es obligatorio.',
+            'role_id.exists' => 'El rol seleccionado no es válido.',
+            'password.required' => 'La contraseña es obligatoria.',
+            'password.min' => 'La contraseña debe tener al menos 6 caracteres.',
         ]);
 
         User::create([
@@ -79,6 +88,15 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:users,email,' . $user->id,
             'role_id' => 'required|exists:roles,id',
+        ],[
+            'name.required' => 'El nombre es obligatorio.',
+            'email.required' => 'El correo electrónico es obligatorio.',
+            'email.email' => 'El formato del correo electrónico es inválido.',
+            'email.unique' => 'El correo electrónico ya está en uso.',
+            'role_id.required' => 'El rol es obligatorio.',
+            'role_id.exists' => 'El rol seleccionado no es válido.',
+            'password.required' => 'La contraseña es obligatoria.',
+            'password.min' => 'La contraseña debe tener al menos 6 caracteres.',
         ]);
 
         $data = $request->only(['name', 'email', 'role_id']);
