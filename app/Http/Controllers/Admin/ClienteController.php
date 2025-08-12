@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Cliente;
+use App\Models\Cliente; // Asegúrate de tener el modelo Cliente
 use App\Models\Proceso;
 use App\Models\ProcesosCliente;
 
@@ -28,6 +28,7 @@ class ClienteController extends Controller
 
         return view('admin.clientes.index', compact('clientes', 'clienteSeleccionado'));
     }
+
 
     public function create()
     {
@@ -95,8 +96,16 @@ class ClienteController extends Controller
     {
         $cliente = Cliente::findOrFail($id);
         session(['cliente_seleccionado' => $cliente->id]);
-        return redirect()->route('admin.clientes.index')->with('success', "Cliente {$cliente->razon_social} seleccionado.");
+        return redirect()->route('admin.procesos_cliente.show', $cliente->id);
     }
+    
+     public function deseleccionar()
+    {
+        session()->forget('cliente_seleccionado');
+
+        return redirect()->route('admin.clientes.index');
+    }
+
 
     public function show($id)
     {
@@ -115,7 +124,7 @@ class ClienteController extends Controller
         $cliente = Cliente::findOrFail($id);
 
         $request->validate([
-            'nombre' => 'required|string|max:255',    
+            'nombre' => 'required|string|max:255',	
             'apellido' => 'required|string|max:255',
             'rfc' => 'required|string|max:13|unique:clientes,rfc,' . $cliente->id,
             'razon_social' => 'required|string|max:255',
@@ -165,13 +174,7 @@ class ClienteController extends Controller
         return redirect()->route('admin.clientes.index')->with('danger', 'Cliente eliminado exitosamente.');
     }
 
-    public function deseleccionar()
-    {
-        session()->forget('cliente_seleccionado');
-
-        return redirect()->route('admin.clientes.index')->with('info', 'Cliente deseleccionado.');
-    }
-  
+   
     public function procesosCliente($clienteId)
     {
         $cliente = Cliente::findOrFail($clienteId);
@@ -183,8 +186,8 @@ class ClienteController extends Controller
     public function showProcesosCliente($clienteId)
     {
         $cliente = Cliente::findOrFail($clienteId);
-        session(['cliente_seleccionado' => $cliente->id]); // <-- Esto es lo importante
-        $procesos = $cliente->procesosCliente;
+        session(['cliente_seleccionado' => $cliente->id]);
+        // ...carga los procesos...
         return view('admin.procesos_cliente.show', compact('procesos', 'cliente'));
     }
 }

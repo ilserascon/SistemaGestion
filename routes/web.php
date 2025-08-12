@@ -42,4 +42,7 @@ RRoute::middleware(['auth', 'is_admin'])->prefix('admin')->name('admin.')->group
     Route::post('organigrama', [OrganigramaController::class, 'store'])->name('organigrama.store');
     Route::resource('organigrama_configuracion', OrganigramaConfiguracionController::class);
 
+    Route::get('deseleccionar-cliente', [ClienteController::class, 'deseleccionar'])->name('clientes.deseleccionar');
+    Route::get('admin/procesos_cliente/{cliente}', [ClienteController::class, 'showProcesosCliente'])->name('admin.procesos_cliente.show');
+
 });
