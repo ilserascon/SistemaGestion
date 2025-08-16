@@ -45,4 +45,7 @@ RRoute::middleware(['auth', 'is_admin'])->prefix('admin')->name('admin.')->group
     Route::get('deseleccionar-cliente', [ClienteController::class, 'deseleccionar'])->name('clientes.deseleccionar');
     Route::get('admin/procesos_cliente/{cliente}', [ClienteController::class, 'showProcesosCliente'])->name('admin.procesos_cliente.show');
 
+    Route::get('organigrama/{empresa_id?}', [OrganigramaController::class, 'index'])->name('empresas.organigramas.index');
+    Route::post('organigrama', [OrganigramaController::class, 'store'])->name('organigrama.store');
+    Route::resource('organigrama_configuracion', OrganigramaConfiguracionController::class);
 });
