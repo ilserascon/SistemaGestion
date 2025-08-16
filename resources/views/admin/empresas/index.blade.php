@@ -60,6 +60,7 @@
                 <td>{{ $empresa->celular }}</td>
                 <td>
                   <div class="d-flex align-items-center">
+
                     <a href="{{ route('admin.empresas.edit', $empresa->id) }}" class="btn btn-warning btn-sm mr-2" title="Editar empresa">
                       <i class="fas fa-edit"></i>
                     </a>
