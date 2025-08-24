@@ -12,14 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('eventos', function (Blueprint $table) {
-            $table->id(); // Clave primaria
-            $table->string('titulo'); // Título del evento
-            $table->dateTime('inicio'); // Fecha y hora de inicio
-            $table->dateTime('fin')->nullable(); // Fecha y hora de finalización (opcional)
-            $table->text('descripcion')->nullable(); // Descripción del evento (opcional)
-            $table->unsignedBigInteger('etiqueta_id')->nullable(); // Relación con etiquetas
-            $table->foreign('etiqueta_id')->references('id')->on('etiquetas')->onDelete('set null'); // Clave foránea
-            $table->timestamps(); // Campos de fecha de creación y actualización
+            $table->id();
+            $table->string('evento'); // Nombre o título del evento
+            $table->dateTime('start_date'); // Fecha y hora de inicio
+            $table->dateTime('end_date')->nullable(); // Fecha y hora de fin, nullable por si no hay fin definido
+            $table->timestamps();
+
+            // Índices para optimizar búsquedas por fechas
+            $table->index('start_date');
+            $table->index('end_date');
         });
     }
 

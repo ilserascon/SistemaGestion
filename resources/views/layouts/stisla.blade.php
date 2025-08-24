@@ -20,6 +20,7 @@
       <div class="main-content">
         @yield('content')
       </div>
+
     </div>
   </div>
 
@@ -30,6 +31,7 @@
   <script src="{{ asset('stisla/assets/modules/nicescroll/jquery.nicescroll.min.js') }}"></script>
   <script src="{{ asset('stisla/assets/modules/moment.min.js') }}"></script>
   <script src="{{ asset('stisla/assets/js/scripts.js') }}"></script>
-
+ @stack('scripts')
+  @stack('styles')
 </body>
 </html>

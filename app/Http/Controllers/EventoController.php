@@ -1,33 +1,72 @@
 <?php
+
 namespace App\Http\Controllers;
 
-use App\Models\Evento;
 use Illuminate\Http\Request;
+use App\Models\Evento;
 
 class EventoController extends Controller
 {
+    // Mostrar todos los eventos
     public function index()
     {
-        return view('agenda.index');
+        $all_events = Evento::all();
+
+        $eventos = [];
+
+        foreach ($all_events as $evento) {
+            $eventos[] = [
+                'id'    => $evento->id,          // importante para identificar eventos en JS
+                'title' => $evento->evento,       // nombre o título del evento
+                'start' => $evento->start_date,  // fecha y hora de inicio
+                'end'   => $evento->end_date,    // fecha y hora de fin (opcional)
+            ];
+        }
+
+        return view('admin.agenda.index', compact('eventos'));
     }
 
-    public function eventos()
+    // Mostrar formulario para crear evento
+    public function create()
     {
-        $eventos = Evento::with('etiqueta')->get();
-        return response()->json($eventos);
+        return view('admin.agenda.create');
     }
 
+    // Guardar nuevo evento
     public function store(Request $request)
     {
         $request->validate([
-            'titulo' => 'required|string|max:255',
-            'inicio' => 'required|date',
-            'fin' => 'nullable|date|after_or_equal:inicio',
-            'descripcion' => 'nullable|string',
-            'etiqueta_id' => 'nullable|exists:etiquetas,id',
+            'evento' => 'required|string|max:255',
+            'start_date' => 'required|date',
+            'end_date' => 'nullable|date|after_or_equal:start_date',
         ]);
 
-        $evento = Evento::create($request->all());
-        return response()->json($evento, 201);
+        Evento::create([
+            'evento' => $request->evento,
+            'start_date' => $request->start_date,
+            'end_date' => $request->end_date,
+        ]);
+
+        return redirect()->route('admin.agenda.index')->with('success', 'Cita creada correctamente.');
+    }
+
+    // Eliminar evento (para que funcione el botón de eliminar en JS)
+    public function destroy($id)
+    {
+        $evento = Evento::find($id);
+
+        if (!$evento) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Evento no encontrado'
+            ], 404);
+        }
+
+        $evento->delete();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Evento eliminado correctamente'
+        ]);
     }
 }

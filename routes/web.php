@@ -20,11 +20,17 @@ Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Route::get('/agenda', [EventoController::class, 'index'])->name('admin.agenda.index');
-Route::get('/agenda/eventos', [EventoController::class, 'eventos'])->name('admin.agenda.eventos');
-Route::post('/agenda', [EventoController::class, 'store'])->name('admin.agenda.store');
 
-RRoute::middleware(['auth', 'is_admin'])->prefix('admin')->name('admin.')->group(function () {
+Route::get('/agenda/eventos', [EventoController::class, 'index'])->name('admin.agenda.index');
+Route::get('/agenda/eventos/create', [EventoController::class, 'create'])->name('admin.agenda.create');
+Route::get('/agenda/eventos', [EventoController::class, 'index'])->name('admin.agenda.index');
+Route::post('/agenda/eventos', [EventoController::class, 'store'])->name('admin.agenda.store');
+Route::delete('/admin/agenda/{id}', [AgendaController::class, 'destroy'])->name('admin.agenda.destroy');
+
+
+
+
+Route::middleware(['auth', 'is_admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::resource('users', UserController::class);
     Route::get('clientes/deseleccionar', [ClienteController::class, 'deseleccionar'])->name('clientes.deseleccionar');
     Route::resource('clientes', ClienteController::class);

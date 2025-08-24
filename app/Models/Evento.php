@@ -1,17 +1,23 @@
 <?php
+
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Evento extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['titulo', 'inicio', 'fin', 'descripcion', 'etiqueta_id'];
+    protected $fillable = [
+        'evento',
+        'start_date',
+        
+    ];
 
-    public function etiqueta()
-    {
-        return $this->belongsTo(Etiqueta::class);
-    }
+    // 👇 Esto convierte los campos a objetos Carbon (para usar toIso8601String)
+    protected $casts = [
+        'start_date' => 'datetime',
+     
+    ];
 }

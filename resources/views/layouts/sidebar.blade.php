@@ -13,6 +13,12 @@
       <li class="menu-header">Menú</li>
 
       @if (Auth::check() && Auth::user()->role && Auth::user()->role->nombre === 'Administrador')
+
+        <li class="{{ request()->is('admin/agenda*') ? 'active' : '' }}">
+          <a class="nav-link" href="{{ route('admin.agenda.index') }}">
+            <i class="fas fa-calendar-alt"></i> <span>Agenda</span>
+          </a>
+          
         <li class="{{ request()->is('admin/users*') ? 'active' : '' }}">
           <a class="nav-link" href="{{ route('admin.users.index') }}">
             <i class="fas fa-users"></i> <span>Usuario</span>
